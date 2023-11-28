@@ -1,0 +1,25 @@
+.square {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 200px;
+  height: 200px;
+  border: 1px solid black;
+  border-radius: 5px;
+  margin: 10px;
+  background-color:pink;
+  color: white;
+  font-size: 4em;
+}
+
+.App {
+  width: 50%;
+  margin: 4em auto;
+  text-align: center;
+}
+
+.board-row {
+  display: flex;
+  justify-content: center;
+ 
+}
