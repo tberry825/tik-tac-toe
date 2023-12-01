@@ -1,14 +1,12 @@
+//here are my imports
+//I'm importing the App.css for styling, the Square component to see the tictactoe squares
 import "../App.css"
-// import { useState } from "react";
 import Square from "./Square";
 
-
+//The Board function is a React functional component that takes three props: isNext, onPlay, and squares.
 function Board({isNext, onPlay, squares}) {
-  // const [squares, setSquares] = useState(Array(9).fill(null));
-  // const [xIsNext , setxIsNext ] = useState(true);
-
-
   
+  //function is called when a square on the board is clicked. It checks if the clicked square is already filled or if there is a winner. If either condition is true, it returns early. Otherwise, it updates the nextSquares array, representing the state of the board, based on the current player (isNext). Then, it calls the onPlay prop with the updated squares.
   function handleClick(index) {
     if(squares[index] || calculateWinner(squares)) {
       return
@@ -36,6 +34,7 @@ function Board({isNext, onPlay, squares}) {
     status = "Next player: " + (isNext ? "X" : "O");
   }
 
+  //checks if there is a winner by iterating through an array of winning combinations (lines) and comparing the values in the squares array.
   function calculateWinner(squares){
     const lines = [
       [0, 1, 2],
@@ -56,6 +55,7 @@ function Board({isNext, onPlay, squares}) {
     }
   }
 
+  //The return statement renders the JSX for the Board component. It displays the game status, either showing the winner or indicating the next player. It also renders the board using the Square component, passing values and click handlers for each square.
     return (
       <div>
         <div className="status">{status}</div>
