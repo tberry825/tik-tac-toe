@@ -1,5 +1,6 @@
 //Here I am importing the Board component to Game, and also importing the useState for the updating of the state variables. Game main function is the ability to view move history. 
 import Board from "./Board";
+import Form from "./Form";
 import { useState } from "react";
 
 
@@ -11,6 +12,27 @@ function Game() {
     const [xIsNext , setXIsNext ] = useState(true);
     const [history , setHistory ] = useState([Array(9).fill(null)]);
     const [currentMove, setCurrentMove] = useState(0);
+    
+    //Initialize the component state using the useState hook. formData is an object that holds the form data, and setFormData is a function used to update the state.
+    const [formData, setFormData] = useState({
+        playerOne: "",
+        playerTwo: "",
+    });
+
+    const [formSubmitted, setFormSubmitted] = useState(false); 
+
+    //Define a function handleChange that updates the form data when input values change. It uses the spread operator (...) to create a copy of the previous state and update the specific field (name or email) based on the input element's name attribute.
+    const handleInputChange = (e) => {
+        const { name, value } = e.target;
+        setFormData({ ...formData,  [name]: value });
+    };
+
+    //Define a function handleSubmit that prevents the default form submission behavior and logs the form data to the console. In a real-world scenario, you would typically send this data to a server or perform further actions.
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        console.log(formData, "Form submitted");
+        setFormSubmitted(true);
+    }
 
     // Get the current state of the board (squares) from history
     const currentSquares = history[history.length - 1]
@@ -58,8 +80,21 @@ function Game() {
                 <Board isNext={xIsNext} onPlay={handlePlay} squares={currentSquares}/>
             </div>
             <div className="game-info">
-                <ol>{moves}</ol>
+                <p>{moves}</p>
             </div>
+            <Form 
+                formData={formData}
+                onInputChange={handleInputChange}
+                onSubmit={handleSubmit}
+            />
+            {/* Display names only if the form is submitted */}
+            {formSubmitted && (
+                <div>
+                    <p>Player One: {formData.playerOne}</p>
+                    <p>Player Two: {formData.playerTwo}</p>
+                </div>
+            )}
+    
          </div>
     );
   }
